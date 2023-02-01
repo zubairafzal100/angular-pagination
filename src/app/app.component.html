@@ -1,0 +1,40 @@
+<div class="container vh-100">
+  <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+    <div>
+      <h4 class="text-center">{{ images[currentPage].title | titlecase }}</h4>
+      <img [src]="images[currentPage].url" [alt]="images[currentPage].title">
+    </div>
+
+    <!-- Switch Statement
+    <div [ngSwitch]="currentPage">
+      <div *ngSwitchCase="0">
+        This is page 1
+      </div>
+      <div *ngSwitchCase="1">
+        This is page 2
+      </div>
+      <div *ngSwitchCase="2">
+        This is page 3
+      </div>
+      <div *ngSwitchDefault>
+        This is unknown page!
+      </div>
+    </div> -->
+    
+    <nav class="mt-5" aria-label="...">
+      <ul class="pagination">
+        <li class="page-item" [appClass]="{ disabled: currentPage === 0 }">
+          <a class="page-link" tabindex="-1" aria-disabled="true" (click)="currentPage = currentPage - 1">Previous</a>
+        </li>
+        <ng-container *appTimes="images.length; let i = index">
+          <li class="page-item" [appClass]="{ active: i === currentPage }" *ngIf="checkPaginationLimit(i)">
+            <a class="page-link" (click)="currentPage = i">{{ i + 1 }}</a>
+          </li>
+      </ng-container>
+        <li class="page-item" [appClass]="{ disabled: currentPage === images.length -1 }">
+          <a class="page-link" (click)="currentPage = currentPage + 1">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
